@@ -11,7 +11,7 @@ exports.createSpParameters = function (applicationId) {
     }
 };
 
-exports.createKeyCredParameters = function (applicationId) {
+exports.createKeyCredParameters = function (key) {
     return {
         appId: key,
         accountEnabled: true

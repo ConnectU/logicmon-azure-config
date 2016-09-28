@@ -1,7 +1,7 @@
 const Promise = require("bluebird")
 const should = require('should');
 const msRestAzure = Promise.promisifyAll(require('ms-rest-azure'));
-const getGraphLoginOptions = require(__dirname.replace('test\\', '') + "/login/graph-options.js");
+const GraphLoginOptions = require(__dirname.replace('test\\', '') + "/login/graph-login-options.js");
 const specBase = require('./spec-base.js').specBase;
 const specName = 'Login';
 
@@ -13,7 +13,7 @@ describe(specName, function () {
         done();
     });
 
-    it('Generic Authentication should work for an azure ad user account with subscription owner rights', function () {
+    it.skip('Generic Authentication should work for an azure ad user account with subscription owner rights', function () {
         return Promise.try(() => {
             return msRestAzure.loginWithUsernamePasswordAsync(base.username, base.password);
         }).then((credentials) => {
@@ -21,9 +21,9 @@ describe(specName, function () {
         });
     });
 
-    it('Graph Authentication should work for an azure ad user account with subscription owner rights', function () {
+    it.skip('Graph Authentication should work for an azure ad user account with subscription owner rights', function () {
         return Promise.try(() => {
-            return msRestAzure.loginWithUsernamePasswordAsync(base.username, base.password, getGraphLoginOptions(base.tenant));
+            return msRestAzure.loginWithUsernamePasswordAsync(base.username, base.password, GraphLoginOptions.get(base.tenant));
         }).then((credentials) => {
             should.exist(credentials);
         });

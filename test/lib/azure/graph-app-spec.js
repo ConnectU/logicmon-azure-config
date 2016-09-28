@@ -1,66 +1,122 @@
 const should = require('should');
 const Promise = require("bluebird");
-const msRestAzure = Promise.promisifyAll(require("ms-rest-azure"));
-
 const graphRbacManagementClient = require('azure-graph');
-
-Promise.promisifyAll(graphRbacManagementClient.prototype);
-Promise.promisifyAll(graphRbacManagementClient.Applications.prototype);
+const msRestAzure = Promise.promisifyAll(require("ms-rest-azure"));
+const graphClient = Promise.promisifyAll(graphRbacManagementClient.prototype);
 
 const Application = require(__dirname.replace('test\\', '') + '/application/application.js');
+const GraphLoginOptions = require(__dirname.replace('test\\', '') + "/login/graph-login-options.js");
+
 const specBase = require('./spec-base.js').specBase;
 const specName = 'Graph-Application';
 
 describe(specName, function () {
     var base
-    var testAppName = 'azureconfig.logicmonitor.com'
+    var testAppName = 'graphApp-IntegTestApp'
     var updatedTestAppName = 'updated.' + testAppName
-    var client
-    
+    var graphApplicationClient
+
     before(function () {
-      base = new specBase(this, specName);
-      return Promise.try(() => {
-            return msRestAzure.loginWithUsernamePasswordAsync(base.username, base.password, Application.createParameters(base.tenant));
-        }).then((credentials) => {
-            client = new graphRbacManagementClient(credentials, base.tenant);
-      });
-    });
-
-    after(function (done) {
-        done();
-    });
-
-
-    it('AAD Applications should be listable', function () {
-
-      	return Promise.try(() => {
-              return client.applications.listAsync();
-          }).then((apps) => {
-              should.exist(apps);
-              apps.should.be.an.instanceOf(Array);
-              apps.should.not.be.empty;
-          });
-    });
-
-
-    it('AAD Application should be updateable', function () {
-        let updatedTestAppParams = Application.createParameters(updatedTestAppName, "testsecret", 4);
- 
+        base = new specBase(this, specName);
         return Promise.try(() => {
-            return client.applications.listAsync();
-        }).then((applications) => {
-            return findApplication(applications, testAppName);
+            return msRestAzure.loginWithUsernamePasswordAsync(base.username, base.password, GraphLoginOptions.get(base.tenant));
+        }).then((credentials) => {
+            var client = new graphRbacManagementClient(credentials, base.tenant);
+            graphApplicationClient = Promise.promisifyAll(client.applications);
+        });
+    });
+
+
+    it.skip('AAD Applications should be listable', function () {
+
+        return Promise.try(() => {
+            return graphApplicationClient.listAsync();
+        }).then((apps) => {
+            should.exist(apps);
+            apps.should.be.an.instanceOf(Array);
+            apps.should.not.be.empty;
+        });
+    });
+
+    
+    it.skip('AAD Application should be creatable', function () {
+
+        let testAppParams = Application.createParameters(testAppName, 'testsecret', 4)
+        return Promise.try(() => {
+            return graphApplicationClient.createAsync(testAppParams);
         }).then((application) => {
-            return client.applications.update(updatedTestAppParams, application.objectId);
+            should.exist(application);
+            application.should.have.property("displayName", testAppName);
+        })
+    });
+
+    it.skip('AAD Application should be findable', function () {
+        return Promise.try(() => {
+            return graphApplicationClient.listAsync();
+        }).then((applications) => {
+            return applications.find((application) => application.displayName === testAppName);
+        }).then((application) => {
+            should.exist(application);
+            application.should.have.property("displayName", testAppName);
+        });
+    });
+
+    it.skip('AAD Application should be getable', function () {
+        return Promise.try(() => {
+            return graphApplicationClient.listAsync();
+        }).then((applications) => {
+            return applications.find((application) => application.displayName === testAppName);
+        }).then((application) => {
+            return graphApplicationClient.getAsync(application.objectId);
+        }).then((application) => {
+            should.exist(application);
+            application.should.have.property("displayName", testAppName);
+        });
+    });
+
+    it.skip('AAD Application should be updateable', function () {
+        let updatedTestAppParams = Application.createParameters(updatedTestAppName, "testsecret", 4);
+
+        return Promise.try(() => {
+            return graphApplicationClient.listAsync();
+        }).then((applications) => {
+            // return Application.find(applications, testAppName);
+            return applications.find((application) => application.displayName === testAppName);
+        }).then((application) => {
+            return graphApplicationClient.patchAsync(application.objectId, updatedTestAppParams);
         }).then((nullResult) => {
             should.not.exist(nullResult);
-        }).delay(10000).then(() => {
-            return client.applications.listAsync();
+        }).then(() => {
+            return graphApplicationClient.listAsync();
         }).then((applications) => {
-            return findApplication(applications, testAppName);
+            return applications.find((app) => app.displayName === updatedTestAppName);
         }).then((application) => {
-            should.exist(app);
-            app.should.have.property("displayName", updatedTestAppName);
+            should.exist(application);
+        })
+    });
+
+    it.skip('AAD Application should be deleteable', function () {
+
+        return Promise.try(() => {
+            return graphApplicationClient.listAsync();
+        }).then((applications) => {
+            return applications.find((application) => application.displayName === updatedTestAppName);
+        }).then((application) => {
+            return graphApplicationClient.deleteMethodAsync(application.objectId);
+        }).then((nullResult) => {
+            should.not.exist(nullResult);
+        }).then(() => {
+            return graphApplicationClient.listAsync();
+        }).then((applications) => {
+            return applications.find((application) => application.displayName === testAppName);
+        }).then((nullResult) => {
+            should.not.exist(nullResult);
+        }).then(() => {
+            return graphApplicationClient.listAsync();
+        }).then((applications) => {
+            return applications.find((application) => application.displayName === testAppName);
+        }).then((nullResult) => {
+            should.not.exist(nullResult);
         })
     });
 });
