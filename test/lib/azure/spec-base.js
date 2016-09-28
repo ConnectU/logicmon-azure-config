@@ -20,7 +20,27 @@ var path = require('path');
  * ];
  */
 
-function azureBaseSpec(mochaSuiteObject, testPrefix) {
+// function normalizeTestName(str) {
+//     return str.replace(/[{}\[\]'";\(\)#@~`!%&\^\$\+=,\/\\?<>\|\*:]/ig, '').replace(/(\s+)/ig, '_');
+// };
+
+// function validateEnvironment(callback) {
+//   var ids = [];
+//   var envs = ['AZURE_AUTH_TENANT', 'AZURE_AUTH_USER_AAD', 'AZURE_AUTH_PASS', 'AZURE_AUTH_SUBSCRIPTION'];
+//   envs.forEach(function (item) {
+//     if (!process.env[item]) {
+//       ids.push(item);
+//     }
+//   });
+
+//   if (ids.length > 0) {
+//     console.log('The following variables were not found:\n\t' + ids.join(', '));
+//     process.exit();
+//   }
+//   callback();
+// }
+
+exports.specBase = function (mochaSuiteObject, testPrefix) {
     this.mochaSuiteObject = mochaSuiteObject;
     this.testPrefix = testPrefix;
     // this.testPrefix = this.normalizeTestName(testPrefix);
@@ -37,25 +57,3 @@ function azureBaseSpec(mochaSuiteObject, testPrefix) {
     this.domain = process.env['AZURE_AUTH_DOMAIN'];
 
 }
-
-// function normalizeTestName(str) {
-//     return str.replace(/[{}\[\]'";\(\)#@~`!%&\^\$\+=,\/\\?<>\|\*:]/ig, '').replace(/(\s+)/ig, '_');
-// };
-
-function validateEnvironment(callback) {
-  var ids = [];
-  var envs = ['AZURE_AUTH_TENANT', 'AZURE_AUTH_USER_AAD', 'AZURE_AUTH_PASS', 'AZURE_AUTH_SUBSCRIPTION'];
-  envs.forEach(function (item) {
-    if (!process.env[item]) {
-      ids.push(item);
-    }
-  });
-
-  if (ids.length > 0) {
-    console.log('The following variables were not found:\n\t' + ids.join(', '));
-    process.exit();
-  }
-  callback();
-}
-
-exports = module.exports = azureBaseSpec;
