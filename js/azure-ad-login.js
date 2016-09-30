@@ -4,7 +4,7 @@ const graphRbacManagementClient = require("azure-graph");
 const msRestAzure = Promise.promisifyAll(require("ms-rest-azure"));
 const graphClient = Promise.promisifyAll(graphRbacManagementClient.prototype);
 
-const GraphLoginOptions = require('../login/graph-login-options.js');
+const GraphLoginOptions = require('../lib/azure/graph-login-options.js');
 
 exports.authenticate = function (tenant, username, password) {
     return Promise.try(() => {

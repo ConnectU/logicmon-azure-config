@@ -1,7 +1,7 @@
 const Promise = require("bluebird")
 const should = require('should');
 const msRestAzure = Promise.promisifyAll(require('ms-rest-azure'));
-const GraphLoginOptions = require(__dirname.replace('test\\', '') + "/login/graph-login-options.js");
+const GraphLoginOptions = require(__dirname.replace('test\\', '') + "/graph-login-options.js");
 const specBase = require('./spec-base.js').specBase;
 const specName = 'Login';
 

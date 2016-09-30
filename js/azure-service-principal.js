@@ -1,7 +1,7 @@
 var util = require('util');
 const Promise = require("bluebird");
 const msRestAzure = Promise.promisifyAll(require("ms-rest-azure"));
-const Application = require('../application/application.js');
+const Application = require('../lib/azure/application.js');
 
 var appClient
 var spClient

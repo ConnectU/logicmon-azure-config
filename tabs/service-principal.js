@@ -1,5 +1,5 @@
 const Promise = require("bluebird");
-const ServicePrincipal = require('./lib/azure/public/azure-ad-service-principal.js');
+const ServicePrincipal = require('../js/azure-service-principal.js');
 
 (function () {
 

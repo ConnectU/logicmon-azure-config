@@ -1,4 +1,4 @@
-const aad = require('./lib/azure/public/azure-ad-login.js');
+const aad = require('../js/azure-ad-login.js');
 
 (function () {
     

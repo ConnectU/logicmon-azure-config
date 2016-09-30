@@ -4,8 +4,8 @@ const graphRbacManagementClient = require('azure-graph');
 const msRestAzure = Promise.promisifyAll(require("ms-rest-azure"));
 const graphClient = Promise.promisifyAll(graphRbacManagementClient.prototype);
 
-const Application = require(__dirname.replace('test\\', '') + '/application/application.js');
-const GraphLoginOptions = require(__dirname.replace('test\\', '') + "/login/graph-login-options.js");
+const Application = require(__dirname.replace('test\\', '') + '/application.js');
+const GraphLoginOptions = require(__dirname.replace('test\\', '') + "/graph-login-options.js");
 
 const specBase = require('./spec-base.js').specBase;
 const specName = 'Graph-Application';
