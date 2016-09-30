@@ -27,7 +27,7 @@ describe(specName, function () {
     });
 
 
-    it.skip('AAD Applications should be listable', function () {
+    it('AAD Applications should be listable', function () {
 
         return Promise.try(() => {
             return graphApplicationClient.listAsync();
@@ -39,7 +39,7 @@ describe(specName, function () {
     });
 
     
-    it.skip('AAD Application should be creatable', function () {
+    it('AAD Application should be creatable', function () {
 
         let testAppParams = Application.createParameters(testAppName, 'testsecret', 4)
         return Promise.try(() => {
@@ -50,10 +50,11 @@ describe(specName, function () {
         })
     });
 
-    it.skip('AAD Application should be findable', function () {
+    it('AAD Application should be findable', function () {
         return Promise.try(() => {
             return graphApplicationClient.listAsync();
         }).then((applications) => {
+            // Application.find(applications, testAppName);
             return applications.find((application) => application.displayName === testAppName);
         }).then((application) => {
             should.exist(application);
@@ -61,10 +62,11 @@ describe(specName, function () {
         });
     });
 
-    it.skip('AAD Application should be getable', function () {
+    it('AAD Application should be getable', function () {
         return Promise.try(() => {
             return graphApplicationClient.listAsync();
         }).then((applications) => {
+            // return Application.find(applications, testAppName);
             return applications.find((application) => application.displayName === testAppName);
         }).then((application) => {
             return graphApplicationClient.getAsync(application.objectId);
@@ -74,7 +76,7 @@ describe(specName, function () {
         });
     });
 
-    it.skip('AAD Application should be updateable', function () {
+    it('AAD Application should be updateable', function () {
         let updatedTestAppParams = Application.createParameters(updatedTestAppName, "testsecret", 4);
 
         return Promise.try(() => {
@@ -95,11 +97,12 @@ describe(specName, function () {
         })
     });
 
-    it.skip('AAD Application should be deleteable', function () {
+    it('AAD Application should be deleteable', function () {
 
         return Promise.try(() => {
             return graphApplicationClient.listAsync();
         }).then((applications) => {
+            // return Application.find(applications, updatedTestAppName);
             return applications.find((application) => application.displayName === updatedTestAppName);
         }).then((application) => {
             return graphApplicationClient.deleteMethodAsync(application.objectId);
@@ -108,12 +111,14 @@ describe(specName, function () {
         }).then(() => {
             return graphApplicationClient.listAsync();
         }).then((applications) => {
+            // return Application.find(applications, testAppName);
             return applications.find((application) => application.displayName === testAppName);
         }).then((nullResult) => {
             should.not.exist(nullResult);
         }).then(() => {
             return graphApplicationClient.listAsync();
         }).then((applications) => {
+            // return Application.find(applications, testAppName);
             return applications.find((application) => application.displayName === testAppName);
         }).then((nullResult) => {
             should.not.exist(nullResult);

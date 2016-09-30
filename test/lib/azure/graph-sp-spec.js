@@ -17,35 +17,35 @@ describe(specName, function () {
     var graphApplicationClient
     var graphServicePrincipalClient
 
-    before(function () {
-        base = new specBase(this, specName);
-        return Promise.try(() => {
-            return msRestAzure.loginWithUsernamePasswordAsync(base.username, base.password, GraphLoginOptions.get(base.tenant));
-        }).then((credentials) => {
-            var client = new graphRbacManagementClient(credentials, base.tenant);
-            return Promise.try(() => {
-                graphApplicationClient = Promise.promisifyAll(client.applications);
-            }).then(() => {
-                let testAppParams = Application.createParameters(testAppName, 'testsecret', 4)
-                graphApplicationClient.createAsync(testAppParams)
-            }).then(() => {
-                graphServicePrincipalClient = Promise.promisifyAll(client.servicePrincipals);
-            });
-        });
-    });
+    // before(function () {
+    //     base = new specBase(this, specName);
+    //     return Promise.try(() => {
+    //         return msRestAzure.loginWithUsernamePasswordAsync(base.username, base.password, GraphLoginOptions.get(base.tenant));
+    //     }).then((credentials) => {
+    //         var client = new graphRbacManagementClient(credentials, base.tenant);
+    //         return Promise.try(() => {
+    //             graphApplicationClient = Promise.promisifyAll(client.applications);
+    //         }).then(() => {
+    //             let testAppParams = Application.createParameters(testAppName, 'testsecret', 4)
+    //             graphApplicationClient.createAsync(testAppParams)
+    //         }).then(() => {
+    //             graphServicePrincipalClient = Promise.promisifyAll(client.servicePrincipals);
+    //         });
+    //     });
+    // });
 
-    after(function () {
-        return Promise.try(() => {
-            return graphApplicationClient.listAsync();
-        }).then((applications) => {
-            return applications.find((application) => application.displayName === testAppName);
-        }).then((application) => {
-            return graphApplicationClient.deleteMethodAsync(application.objectId);
-        });
-    });
+    // after(function () {
+    //     return Promise.try(() => {
+    //         return graphApplicationClient.listAsync();
+    //     }).then((applications) => {
+    //         return applications.find((application) => application.displayName === testAppName);
+    //     }).then((application) => {
+    //         return graphApplicationClient.deleteMethodAsync(application.objectId);
+    //     });
+    // });
 
 
-    it('ServicePrincipals should be listable', function () {
+    it.skip('ServicePrincipals should be listable', function () {
 
         return Promise.try(() => {
             return graphServicePrincipalClient.listAsync();
@@ -57,7 +57,7 @@ describe(specName, function () {
     });
 
 
-    it('ServicePrincipal should be creatable', function () {
+    it.skip('ServicePrincipal should be creatable', function () {
 
         return Promise.try(() => {
             return graphApplicationClient.listAsync();
@@ -73,7 +73,7 @@ describe(specName, function () {
         })
     });
 
-    it('ServicePrincipal should be findable', function () {
+    it.skip('ServicePrincipal should be findable', function () {
         return Promise.try(() => {
             return graphServicePrincipalClient.listAsync();
         }).then((sps) => {
@@ -84,7 +84,7 @@ describe(specName, function () {
         });
     });
 
-    it('ServicePrincipal should be getable', function () {
+    it.skip('ServicePrincipal should be getable', function () {
         return Promise.try(() => {
             return graphServicePrincipalClient.listAsync();
         }).then((sps) => {
@@ -117,7 +117,7 @@ describe(specName, function () {
         })
     });
 
-    it('ServicePrincipal should be deleteable', function () {
+    it.skip('ServicePrincipal should be deleteable', function () {
 
         return Promise.try(() => {
             return graphServicePrincipalClient.listAsync();

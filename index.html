@@ -1,64 +1,62 @@
-<!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-	<title>Electron tutorial app</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<link rel="import" href="sections/getintouch.html">
-	<link rel="import" href="sections/welcome.html">
-	<link rel="import" href="sections/whatwedo.html">
-	<link rel="import" href="sections/whoweare.html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+
+    <title>Responsive Side Menu &ndash; Layout Examples &ndash; Pure</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="import" href="login-tab.html">
+    <link rel="import" href="service-principal.html">
+    <link rel="import" href="virtual-machine.html">
+    <link rel="import" href="storage.html">
+    <link rel="import" href="database.html">
+    <link rel="import" href="webapp.html">
+    <link rel="stylesheet" href="css/layouts/side-menu.css">
 </head>
 
 <body>
+    <div id="layout">
+        <a href="#menu" id="menuLink" class="menu-link">
+            <span></span>
+        </a>
 
-	<!-- Sidebar -->
-	<section id="sidebar">
-		<div class="inner">
-			<nav>
-				<ul>
-					<li><a data-section="getintouch" href="#">Get in touch</a></li>
-					<li><a id="welcome-menu" data-section="welcome" href="#">Welcome</a></li>
-					<li><a data-section="whoweare" href="#">Who we are</a></li>
-					<li><a data-section="whatwedo" href="#">What we do</a></li>
-				</ul>
-			</nav>
-		</div>
-	</section>
 
-	<!-- Wrapper -->
-	<div id="wrapper">
-	</div>
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="#">Menu</a>
 
-	<!-- Footer -->
-	<footer id="footer" class="wrapper style1-alt">
-		<div class="inner">
-			<ul class="menu">
-				<li>&copy; Untitled. All rights reserved.</li>
-				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-			</ul>
-		</div>
-	</footer>
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item"><a id="login-item" data-section="login-tab" href="#" class="pure-menu-link">Login</a></li>
+                    <li class="pure-menu-item"><a data-section="service-principal-tab" href="#" class="pure-menu-link">Service Princpal</a></li>
+                    <li class="pure-menu-item"><a data-section="virtual-machine-tab" href="#" class="pure-menu-link">Virtual Machines</a></li>
+                    <li class="pure-menu-item"><a data-section="storage-tab" href="#" class="pure-menu-link">Storage</a></li>
+                    <li class="pure-menu-item"><a data-section="database-tab" href="#" class="pure-menu-link">Databases</a></li>
+                    <li class="pure-menu-item"><a data-section="webapp-tab" href="#" class="pure-menu-link">Web Apps</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Wrapper -->
+        <div id="wrapper">
+        </div>
 
-	<!-- Scripts -->
-	<script>window.$ = window.jQuery = require('./assets/js/jquery.min.js');</script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/skel.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
-	<script>
-        require('./assets/js/menu')
-		require('./assets/js/azureauth')
-      </script>
-
+        <div class="footer">
+            <h2 class="footer-subhead">Log Output</h2>
+            <form class="pure-form">
+                <fieldset class="pure-group">
+                    <textarea id="log-output" class="pure-input-1" wrap="soft" placeholder="No output yet..."></textarea>
+                </fieldset>
+            </form>
+        </div>
+        <script src="js/ui.js"></script>
+        <script>
+            function log(logMessage) {
+                document.getElementById("log-output").value = document.getElementById("log-output").value + "[" + new Date().toUTCString() + "]  " + logMessage + '\n'
+            }
+            var azureRestClient
+        </script>
 </body>
 
 </html>

@@ -1,0 +1,51 @@
+<template class="section-template">
+    <section id="login-tab">
+        <div class="header">
+            <h1>Login</h1>
+            <div class="pure-menu pure-menu-horizontal">
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item"><a data-section="azure-ad-subtab" href="#" class="pure-menu-link">Azure AD</a></li>
+                    <li class="pure-menu-item"><a data-section="live-id-subtab" href="#" class="pure-menu-link">Live ID</a></li>
+                </ul>
+            </div>
+        </div>
+        <section id="azure-ad-subtab">
+            <div class="content">
+                <h1 class="content-subhead">Azure AD Credentials</h1>
+                <p>
+                    Use this tab if your Azure account is integrated with Azure Active Directory.
+                </p>
+                <form class="pure-form pure-form-aligned">
+                    <fieldset>
+                        <div class="pure-control-group">
+                            <label for="tenant">Azure Tenant ID</label>
+                            <input id="tenant" class="pure-input-1-3" type="text" placeholder="e.g. a012346b-a12b-1ab2-a21b-abc123456def123">
+                        </div>
+
+                        <div class="pure-control-group">
+                            <label for="username">Username</label>
+                            <input id="username" class="pure-input-1-3" type="email" placeholder="e.g. Username@domain.com">
+                        </div>
+
+                        <div class="pure-control-group">
+                            <label for="password">Password</label>
+                            <input id="password" class="pure-input-1-3" type="password" placeholder="Password">
+                        </div>
+                        <button id="azure-ad-login" type="button" class="pure-button pure-button-primary">Login</button>
+                    </fieldset>
+                </form>
+            </div>
+        </section>
+        <section id="live-id-subtab">
+            <div class="content">
+                <h2 class="content-subhead">Live ID Interactive Login</h2>
+                <form class="pure-form pure-form-aligned">
+                    <fieldset>
+                        <button id="live-id-launch" type="button" class="pure-button pure-button-primary">Launch</button>
+                    </fieldset>
+                </form>
+            </div>
+        </section>
+    </section>
+    <script src="login-tab.js"></script>
+</template>
