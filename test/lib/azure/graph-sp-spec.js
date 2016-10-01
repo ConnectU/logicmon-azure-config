@@ -1,21 +1,21 @@
-const should = require('should');
-const Promise = require("bluebird");
-const graphRbacManagementClient = require('azure-graph');
-const msRestAzure = Promise.promisifyAll(require("ms-rest-azure"));
-const graphClient = Promise.promisifyAll(graphRbacManagementClient.prototype);
+// const should = require('should');
+// const Promise = require("bluebird");
+// const graphRbacManagementClient = require('azure-graph');
+// const msRestAzure = Promise.promisifyAll(require("ms-rest-azure"));
+// const graphClient = Promise.promisifyAll(graphRbacManagementClient.prototype);
 
-const Application = require(__dirname.replace('test\\', '') + '/application.js');
-const ServicePrincipal = require(__dirname.replace('test\\', '') + '/serviceprincipal.js');
-const GraphLoginOptions = require(__dirname.replace('test\\', '') + "/graph-login-options.js");
+// const Application = require(__dirname.replace('test\\', '') + '/application.js');
+// const ServicePrincipal = require(__dirname.replace('test\\', '') + '/serviceprincipal.js');
+// const GraphLoginOptions = require(__dirname.replace('test\\', '') + "/graph-login-options.js");
 
-const specBase = require('./spec-base.js').specBase;
-const specName = 'Graph-ServicePrincipal';
+// const specBase = require('./spec-base.js').specBase;
+// const specName = 'Graph-ServicePrincipal';
 
-describe(specName, function () {
-    var base
-    var testAppName = 'graphSp-IntegTestApp'
-    var graphApplicationClient
-    var graphServicePrincipalClient
+// describe(specName, function () {
+//     var base
+//     var testAppName = 'graphSp-IntegTestApp'
+//     var graphApplicationClient
+//     var graphServicePrincipalClient
 
     // before(function () {
     //     base = new specBase(this, specName);
@@ -45,94 +45,94 @@ describe(specName, function () {
     // });
 
 
-    it.skip('ServicePrincipals should be listable', function () {
+//     it.skip('ServicePrincipals should be listable', function () {
 
-        return Promise.try(() => {
-            return graphServicePrincipalClient.listAsync();
-        }).then((apps) => {
-            should.exist(apps);
-            apps.should.be.an.instanceOf(Array);
-            apps.should.not.be.empty;
-        });
-    });
+//         return Promise.try(() => {
+//             return graphServicePrincipalClient.listAsync();
+//         }).then((apps) => {
+//             should.exist(apps);
+//             apps.should.be.an.instanceOf(Array);
+//             apps.should.not.be.empty;
+//         });
+//     });
 
 
-    it.skip('ServicePrincipal should be creatable', function () {
+//     it.skip('ServicePrincipal should be creatable', function () {
 
-        return Promise.try(() => {
-            return graphApplicationClient.listAsync();
-        }).then((applications) => {
-            return applications.find((application) => application.displayName === testAppName);
-        }).then((application) => {
-            return ServicePrincipal.createParameters(application.appId)
-        }).then((testSpParams) => {
-            return graphServicePrincipalClient.createAsync(testSpParams);
-        }).then((sp) => {
-            should.exist(sp);
-            sp.should.have.property("displayName", testAppName);
-        })
-    });
+//         return Promise.try(() => {
+//             return graphApplicationClient.listAsync();
+//         }).then((applications) => {
+//             return applications.find((application) => application.displayName === testAppName);
+//         }).then((application) => {
+//             return ServicePrincipal.createParameters(application.appId)
+//         }).then((testSpParams) => {
+//             return graphServicePrincipalClient.createAsync(testSpParams);
+//         }).then((sp) => {
+//             should.exist(sp);
+//             sp.should.have.property("displayName", testAppName);
+//         })
+//     });
 
-    it.skip('ServicePrincipal should be findable', function () {
-        return Promise.try(() => {
-            return graphServicePrincipalClient.listAsync();
-        }).then((sps) => {
-            return sps.find((sp) => sp.displayName === testAppName);
-        }).then((sp) => {
-            should.exist(sp);
-            sp.should.have.property("displayName", testAppName);
-        });
-    });
+//     it.skip('ServicePrincipal should be findable', function () {
+//         return Promise.try(() => {
+//             return graphServicePrincipalClient.listAsync();
+//         }).then((sps) => {
+//             return sps.find((sp) => sp.displayName === testAppName);
+//         }).then((sp) => {
+//             should.exist(sp);
+//             sp.should.have.property("displayName", testAppName);
+//         });
+//     });
 
-    it.skip('ServicePrincipal should be getable', function () {
-        return Promise.try(() => {
-            return graphServicePrincipalClient.listAsync();
-        }).then((sps) => {
-            return sps.find((sp) => sp.displayName === testAppName);
-        }).then((sp) => {
-            return graphServicePrincipalClient.getAsync(sp.objectId);
-        }).then((sp) => {
-            should.exist(sp);
-            sp.should.have.property("displayName", testAppName);
-        });
-    });
+//     it.skip('ServicePrincipal should be getable', function () {
+//         return Promise.try(() => {
+//             return graphServicePrincipalClient.listAsync();
+//         }).then((sps) => {
+//             return sps.find((sp) => sp.displayName === testAppName);
+//         }).then((sp) => {
+//             return graphServicePrincipalClient.getAsync(sp.objectId);
+//         }).then((sp) => {
+//             should.exist(sp);
+//             sp.should.have.property("displayName", testAppName);
+//         });
+//     });
 
-    it.skip('ServicePrincipal should be updateable', function () {
-        let updatedTestAppParams = Application.createParameters(updatedTestAppName, "testsecret", 4);
+//     it.skip('ServicePrincipal should be updateable', function () {
+//         let updatedTestAppParams = Application.createParameters(updatedTestAppName, "testsecret", 4);
 
-        return Promise.try(() => {
-            return graphServicePrincipalClient.listAsync();
-        }).then((sps) => {
-            return sps.find((sp) => sp.displayName === testAppName);
-        }).then((sp) => {
-            return graphServicePrincipalClient.patchAsync(sp.objectId, updatedTestAppParams);
-        }).then((nullResult) => {
-            should.not.exist(nullResult);
-        }).then(() => {
-            return graphServicePrincipalClient.listAsync();
-        }).then((sps) => {
-            return sps.find((app) => app.displayName === updatedTestAppName);
-        }).then((sp) => {
-            should.exist(sp);
-        })
-    });
+//         return Promise.try(() => {
+//             return graphServicePrincipalClient.listAsync();
+//         }).then((sps) => {
+//             return sps.find((sp) => sp.displayName === testAppName);
+//         }).then((sp) => {
+//             return graphServicePrincipalClient.patchAsync(sp.objectId, updatedTestAppParams);
+//         }).then((nullResult) => {
+//             should.not.exist(nullResult);
+//         }).then(() => {
+//             return graphServicePrincipalClient.listAsync();
+//         }).then((sps) => {
+//             return sps.find((app) => app.displayName === updatedTestAppName);
+//         }).then((sp) => {
+//             should.exist(sp);
+//         })
+//     });
 
-    it.skip('ServicePrincipal should be deleteable', function () {
+//     it.skip('ServicePrincipal should be deleteable', function () {
 
-        return Promise.try(() => {
-            return graphServicePrincipalClient.listAsync();
-        }).then((sps) => {
-            return sps.find((sp) => sp.displayName === testAppName);
-        }).then((sp) => {
-            return graphServicePrincipalClient.deleteMethodAsync(sp.objectId);
-        }).then((nullResult) => {
-            should.not.exist(nullResult);
-        }).then(() => {
-            return graphServicePrincipalClient.listAsync();
-        }).then((sps) => {
-            return sps.find((sp) => sp.displayName === testAppName);
-        }).then((nullResult) => {
-            should.not.exist(nullResult);
-        })
-    });
-});
+//         return Promise.try(() => {
+//             return graphServicePrincipalClient.listAsync();
+//         }).then((sps) => {
+//             return sps.find((sp) => sp.displayName === testAppName);
+//         }).then((sp) => {
+//             return graphServicePrincipalClient.deleteMethodAsync(sp.objectId);
+//         }).then((nullResult) => {
+//             should.not.exist(nullResult);
+//         }).then(() => {
+//             return graphServicePrincipalClient.listAsync();
+//         }).then((sps) => {
+//             return sps.find((sp) => sp.displayName === testAppName);
+//         }).then((nullResult) => {
+//             should.not.exist(nullResult);
+//         })
+//     });
+// });

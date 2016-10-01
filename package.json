@@ -28,7 +28,6 @@
     "azure-graph": "^1.1.1",
     "bluebird": "^3.4.6",
     "grunt": "^1.0.1",
-    "jquery": "^3.1.1",
     "ms-rest": "^1.15.0",
     "ms-rest-azure": "1.15.0"
   }

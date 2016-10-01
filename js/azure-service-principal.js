@@ -1,33 +1,45 @@
-var util = require('util');
+const util = require('util');
 const Promise = require("bluebird");
-const msRestAzure = Promise.promisifyAll(require("ms-rest-azure"));
 const Application = require('../lib/azure/application.js');
+const graphRbacManagementClient = require('azure-graph');
 
+var login = require('./azure-login.js');
+var client
 var appClient
 var spClient
 
+function initializeClient() {
+    var credentials = login.getAzureCredentials();
+    console.log(credentials)
+    client = new graphRbacManagementClient(credentials, credentials.domain);
+}
+
 function initializeAppClient() {
-    if (appClient != null) {
-        appClient = Promise.promisifyAll(azureRestClient.applications);
+    if (appClient == null) {
+        initializeClient()
+        appClient = Promise.promisifyAll(client.applications);
     }
+    console.log(appClient)
     return appClient
 }
 
 function initializeSpClient() {
-    if (spClient != null) {
-        spClient = Promise.promisifyAll(azureRestClient.servicePrincipals);
+    if (spClient == null) {
+        initializeClient()
+        spClient = Promise.promisifyAll(client.servicePrincipals);
     }
+    console.log(spClient)
     return spClient
 }
 
 exports.listApplications = function () {
     return Promise.try(() => {
-        return Promise.promisifyAll(azureRestClient.applications);
+        return initializeAppClient();
     }).then((graphApplicationClient) => {
         return graphApplicationClient.listAsync();
     }).then((applications) => {
         log(util.inspect(applications, { depth: null }));
-        return false;
+        return applications;
     });
 }
 exports.createApplication = function () {
@@ -37,7 +49,7 @@ exports.createApplication = function () {
         return graphApplicationClient.createAsync();
     }).then((applications) => {
         log(util.inspect(applications, { depth: null }));
-        return false;
+        return applications;
     });
 }
 exports.listServicePrincipals = function () {
@@ -47,17 +59,17 @@ exports.listServicePrincipals = function () {
         return graphServicePrincipalClient.listAsync();
     }).then((servicePrincipals) => {
         log(util.inspect(servicePrincipals, { depth: null }));
-        return false;
+        return servicePrincipals;
     });
 }
-exports.createServicePrincipals = function () {
+exports.createServicePrincipal = function () {
     return Promise.try(() => {
         return initializeSpClient();
     }).then((graphServicePrincipalClient) => {
         return graphServicePrincipalClient.createAsync();
     }).then((servicePrincipal) => {
         log(util.inspect(servicePrincipal, { depth: null }));
-        return false;
+        return servicePrincipal;
     });
 }
 

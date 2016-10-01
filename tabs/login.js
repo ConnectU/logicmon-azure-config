@@ -1,4 +1,5 @@
-const aad = require('../js/azure-ad-login.js');
+const login = require('./js/azure-login.js');
+
 
 (function () {
     
@@ -9,16 +10,11 @@ const aad = require('../js/azure-ad-login.js');
     document.getElementById("azure-ad-login").addEventListener('click', function (event) {
         log("User clicked Azure AD Login Button.");
         log("Attempting to authenticate.");
-        console.log(azureRestClient)
         var tenant = document.getElementById("tenant").value;
         var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
-        azureRestClient = aad.authenticate(tenant, username, password)
-        if(azureRestClient != null){
-            log("Authentication successful.");    
-        }else{
-            log("Authenication failed.");
-        }
-        console.log(azureRestClient)
+        
+        Promise.resolve(login.authenticateAad(tenant, username, password));
+
     })
 } ());
