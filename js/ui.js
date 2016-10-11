@@ -7,7 +7,7 @@
     var menuconstants = {
         sectionTemplate: '.section-template',
         contentContainer: '#wrapper',
-        startSection: '#azure-ad-subtab'
+        startSection: '#virtual-machine-tab'
     };
 
     init()

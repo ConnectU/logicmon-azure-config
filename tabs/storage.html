@@ -1,4 +1,3 @@
-
 <template class="section-template">
     <section id="storage-tab">
         <div id="main">
@@ -6,5 +5,22 @@
                 <h1>Storage Configuration</h1>
             </div>
         </div>
+        <div class="content">
+                <h1 class="content-subhead">Storage Configuration</h1>
+                <form class="pure-form pure-form-aligned">
+                    <fieldset>
+                        <p>
+                        Here you can export storage diagnostic settings to CSV.<br>
+                        Then, you can modify and re-import the CSV to enable monitoring on selected resources.<br>
+                        </p>
+                        <div class="pure-control-group">
+                            <input id="path-to-csv-storage" class="pure-input-1" type="text" placeholder="Path to CSV" readonly>
+                        </div>
+                        <button id="export-storage" type="button" class="pure-button pure-button-primary">Export Storage List</button>
+                        <button id="import-storage" type="button" class="pure-button pure-button-primary">Import Storage List</button>
+                    </fieldset>
+                </form>
+            </div>
     </section>
+    <script src="tabs/storage.js"></script>
 </template>

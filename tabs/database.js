@@ -1,9 +1,9 @@
-const grid = require('./js/editable-grid.js');
+
 
 (function () {
     // grid.render()
 
-    // document.getElementById("browse-file-virtualmachine").addEventListener('click', function (event) {
+    // document.getElementById("browse-file-database").addEventListener('click', function (event) {
     //     log('User clicked "browse" button');
     //     Promise.try(() => {
             
@@ -12,7 +12,7 @@ const grid = require('./js/editable-grid.js');
     //     });
     // })
 
-    // document.getElementById("export-virtualmachine").addEventListener('click', function (event) {
+    // document.getElementById("export-database").addEventListener('click', function (event) {
     //     log('User clicked "export" button');
     //     Promise.try(() => {
     //         return Promise.resolve();
@@ -20,8 +20,8 @@ const grid = require('./js/editable-grid.js');
     //     });
     // })
 
-    document.getElementById("import-virtualmachine").addEventListener('click', function (event) {
-            grid.launch("wrapper")
+    document.getElementById("import-database").addEventListener('click', function (event) {
+            grid.launch("grid-holder-database")
         // log('User clicked "import" button');
         // Promise.try(() => {
         //     return Promise.resolve();
@@ -30,7 +30,7 @@ const grid = require('./js/editable-grid.js');
     })
 
     // function readPath() {
-    //     return document.getElementById("path-to-csv-virtualmachine").value;
+    //     return document.getElementById("path-to-csv-database").value;
     // }
 
 
