@@ -21,7 +21,7 @@ const grid = require('./js/editable-grid.js');
     // })
 
     document.getElementById("import-virtualmachine").addEventListener('click', function (event) {
-            grid.launch("wrapper")
+            grid.launch("#grid-holder-virtualmachine")
         // log('User clicked "import" button');
         // Promise.try(() => {
         //     return Promise.resolve();

@@ -34,7 +34,7 @@ exports.launch = function(containerId){
             }
         },
         // element to append grid too
-        el: $('body'),
+        el: $(containerId),
         columns: [
             {
                 // unique id for the data property name, can be nested - EG foo.bar
@@ -104,7 +104,7 @@ exports.launch = function(containerId){
     });
 
     // render the grid onto the page
-    grid.render(containerId);
+    grid.render();
 
     // things to listen for
     grid.on('editable-value-updated', function (params) { });
